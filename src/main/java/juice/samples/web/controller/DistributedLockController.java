@@ -36,8 +36,10 @@ public class DistributedLockController {
             return ResultDTO.invalidParam("加锁失败");
         }
         try {
+            //模拟业务处理逻辑
             long time = RandomUtils.nextLong(1, 10);
             TimeUnit.SECONDS.sleep(time);
+
             LOG.info("商品秒杀-提交请求, productId={} 加锁成功", productId);
             return ResultDTO.ok();
         } catch (Exception e) {

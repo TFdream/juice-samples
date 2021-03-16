@@ -30,6 +30,8 @@ public class SecKillController {
             LOG.info("商品秒杀-提交请求, productId:{} 超出最大处理能力", productId);
             return ResultDTO.invalidParam("服务忙......");
         }
+        //业务逻辑处理
+
         LOG.info("商品秒杀-提交请求, productId:{} 秒杀成功", productId);
         return ResultDTO.ok();
     }
