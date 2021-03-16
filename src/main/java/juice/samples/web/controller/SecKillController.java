@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * 商品秒杀
+ * 商品秒杀 【接口限流示例】
  * @author Ricky Fung
  */
 @RestController

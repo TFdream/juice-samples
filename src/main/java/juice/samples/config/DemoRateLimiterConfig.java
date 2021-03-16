@@ -20,7 +20,7 @@ public class DemoRateLimiterConfig {
         RateLimiterConfig config = RateLimiterConfig.custom()
                 .timeoutDuration(Duration.ofMillis(1000))
                 .limitRefreshPeriod(Duration.ofSeconds(1))
-                .limitForPeriod(15)
+                .limitForPeriod(5)
                 .build();
         // Create a RateLimiter
         return new RedisRateLimiter("redis", config, stringRedisTemplate);
