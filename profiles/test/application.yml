@@ -1,0 +1,36 @@
+server:
+  port: 8080
+  tomcat:
+    threads:
+      max: 800
+
+spring:
+  application:
+    name: juice-samples
+
+# redis
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password: root@2021
+    ssl: false
+    lettuce:
+      pool:
+        max-wait: 5000ms
+        maxActive: 20
+        maxIdle: 8
+        minIdle: 1
+    timeout: 3000ms
+
+# juice
+juice:
+  tracing:
+    enable: true
+    pathPatterns: /api/*
+  ftp:
+    enable: false
+    host: localhost
+    port: 2121
+    password: root@2021
+    username: admin

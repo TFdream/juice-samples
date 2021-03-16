@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="projectName" value="@project.artifactId@" />
+    <property name="LOG_PATH" value="/data/logs/${projectName}"/>
+    <property name="LOG_FILE_NAME" value="${projectName}"/>
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{X-TraceId}] %-5level %logger - %msg%n"/>
+    <property name="logStashHost" value="" />
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>4GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--配置规则类的位置-->
+    <conversionRule conversionWord="ip" converterClass="juice.core.logback.IPLogConfig" />
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>${logStashHost}</destination>
+        <keepAliveDuration>5 minutes</keepAliveDuration>
+        <writeBufferSize>81920</writeBufferSize>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp/>
+                <version/>
+                <pattern>
+                    <pattern>
+                        <!-- ${hostIp}是应用服务所在系统IP，${prodName} 是服务项目名称 ，需要提前配置logback变量；这些格式是固定的，如果需要调整，需要提前沟通 -->
+                        {"host": "%ip","project": "${projectName}","log_level": "%level","trace": "%X{X-TraceId:-}","span": "%X{X-SpanId:-}","parent": "%X{X-ParentSpanId:-}","thread": "%thread","class": "%logger","message": "%msg","exception_stack": "%ex{full}"}
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <appender name ="asyncToFile" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold >0</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <appender-ref ref ="FILE"/>
+    </appender>
+
+    <appender name ="asyncLOGSTASH" class= "ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold >0</discardingThreshold>
+        <queueSize>128</queueSize>
+        <appender-ref ref ="LOGSTASH"/>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="asyncToFile"/>
+        <appender-ref ref="asyncLOGSTASH"/>
+    </root>
+
+    <logger name="juice" level="DEBUG" />
+
+</configuration>
