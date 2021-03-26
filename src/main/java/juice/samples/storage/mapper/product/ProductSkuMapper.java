@@ -1,7 +1,10 @@
 package juice.samples.storage.mapper.product;
 
+import juice.datasource.annotation.DSRouting;
+import juice.samples.constants.DataSourceKey;
 import juice.samples.storage.entity.product.ProductSku;
 
+@DSRouting(DataSourceKey.MASTER_PRODUCT)
 public interface ProductSkuMapper {
     int deleteByPrimaryKey(Long id);
 

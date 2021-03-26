@@ -8,12 +8,17 @@ spring:
   application:
     name: juice-samples
 
+# jackson date
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
 # redis
   redis:
     database: 0
     host: 10.10.60.65
     port: 6379
-    password: iqianjin@123
+    password: root@123
     ssl: false
     lettuce:
       pool:
@@ -28,75 +33,75 @@ spring:
       master:
         driver-class-name: com.mysql.cj.jdbc.Driver
         filters: mergeStat
-        initial-size: 5
+        initial-size: 2
         max-active: 100
         max-wait: 20000
         min-evictable-idle-time-millis: 300000
         min-idle: 1
-        name: juice
-        password: root@2021
+        name: member_master
+        username: root2021
+        password: root2021
         test-on-borrow: false
         test-on-return: false
         test-while-idle: true
         time-between-eviction-runs-millis: 60000
         type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://localhost:3306/member_ms?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
-        username: root
+        url: jdbc:mysql://10.10.175.136:3306/member_master?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
         validation-query: SELECT 'x'
       slave:
         driver-class-name: com.mysql.cj.jdbc.Driver
         filters: mergeStat
-        initial-size: 5
+        initial-size: 2
         max-active: 100
         max-wait: 20000
         min-evictable-idle-time-millis: 300000
         min-idle: 1
-        name: juice
-        password: root@2021
+        name: member_slave
+        username: root2021
+        password: root2021
         test-on-borrow: false
         test-on-return: false
         test-while-idle: true
         time-between-eviction-runs-millis: 60000
         type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://localhost:3306/member_slave?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
-        username: root
+        url: jdbc:mysql://10.10.175.136:3306/member_slave?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
         validation-query: SELECT 'x'
     product:
       master:
         driver-class-name: com.mysql.cj.jdbc.Driver
         filters: mergeStat
-        initial-size: 5
+        initial-size: 2
         max-active: 100
         max-wait: 20000
         min-evictable-idle-time-millis: 300000
         min-idle: 1
-        name: juice
-        password: root@2021
+        name: product_master
+        username: root2021
+        password: root2021
         test-on-borrow: false
         test-on-return: false
         test-while-idle: true
         time-between-eviction-runs-millis: 60000
         type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://localhost:3306/product_ms?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
-        username: root
+        url: jdbc:mysql://10.10.175.136:3306/product_master?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
         validation-query: SELECT 'x'
       slave:
         driver-class-name: com.mysql.cj.jdbc.Driver
         filters: mergeStat
-        initial-size: 5
+        initial-size: 2
         max-active: 100
         max-wait: 20000
         min-evictable-idle-time-millis: 300000
         min-idle: 1
-        name: juice
-        password: root@2021
+        name: product_slave
+        username: root2021
+        password: root2021
         test-on-borrow: false
         test-on-return: false
         test-while-idle: true
         time-between-eviction-runs-millis: 60000
         type: com.alibaba.druid.pool.DruidDataSource
-        url: jdbc:mysql://localhost:3306/product_slave?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
-        username: root
+        url: jdbc:mysql://10.10.175.136:3306/product_slave?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
         validation-query: SELECT 'x'
 
 # mybatis的相关配置

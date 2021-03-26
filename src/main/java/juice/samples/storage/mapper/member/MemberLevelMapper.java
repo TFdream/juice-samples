@@ -1,7 +1,10 @@
 package juice.samples.storage.mapper.member;
 
+import juice.datasource.annotation.DSRouting;
+import juice.samples.constants.DataSourceKey;
 import juice.samples.storage.entity.member.MemberLevel;
 
+@DSRouting(DataSourceKey.MASTER_MEMBER)
 public interface MemberLevelMapper {
     int deleteByPrimaryKey(Integer id);
 
