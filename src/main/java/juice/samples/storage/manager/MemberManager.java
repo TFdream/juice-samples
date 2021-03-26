@@ -1,5 +1,7 @@
 package juice.samples.storage.manager;
 
+import juice.datasource.annotation.DSRouting;
+import juice.samples.constants.DataSourceKey;
 import juice.samples.storage.entity.member.Member;
 import juice.samples.storage.entity.member.MemberExt;
 import juice.samples.storage.mapper.member.MemberExtMapper;
@@ -23,6 +25,7 @@ public class MemberManager {
     @Resource
     private MemberExtMapper memberExtMapper;
 
+    @DSRouting(DataSourceKey.MASTER_MEMBER)
     public Member findById(Long id) {
         return memberMapper.selectByPrimaryKey(id);
     }

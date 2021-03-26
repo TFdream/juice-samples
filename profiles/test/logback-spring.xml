@@ -4,7 +4,7 @@
     <property name="LOG_PATH" value="/data/logs/${projectName}"/>
     <property name="LOG_FILE_NAME" value="${projectName}"/>
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{X-TraceId}] %-5level %logger - %msg%n"/>
-    <property name="logStashHost" value="" />
+    <property name="LOG_STASH_HOST" value="10.10.37.2:5045" />
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -29,7 +29,7 @@
     <!--配置规则类的位置-->
     <conversionRule conversionWord="ip" converterClass="juice.core.logback.IPLogConfig" />
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>${logStashHost}</destination>
+        <destination>${LOG_STASH_HOST}</destination>
         <keepAliveDuration>5 minutes</keepAliveDuration>
         <writeBufferSize>81920</writeBufferSize>
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">

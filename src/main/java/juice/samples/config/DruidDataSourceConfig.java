@@ -34,22 +34,6 @@ public class DruidDataSourceConfig {
     private String configLocation;
 
     @Bean
-    public DataSourceTransactionManager transactionManager(DataSource dynamicDataSource) {
-        return new DataSourceTransactionManager(dynamicDataSource);
-    }
-
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dynamicDataSource) throws Exception {
-        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource(dynamicDataSource);
-        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));
-        bean.setTypeAliasesPackage(typeAliasesPackage);
-        bean.setConfigLocation(new PathMatchingResourcePatternResolver().getResource(configLocation));
-        return bean.getObject();
-    }
-
-    //===========
-    @Bean
     public DynamicDataSource dynamicDataSource() {
         Map<String,String> pkgDefaultDsKeyMap = new HashMap<>(4);
         pkgDefaultDsKeyMap.put("juice.samples.storage.mapper.member", DataSourceKey.MASTER_MEMBER);
@@ -94,6 +78,22 @@ public class DruidDataSourceConfig {
     @ConfigurationProperties("spring.datasource.product.slave")
     public DataSource productSlaveDS(){
         return DruidDataSourceBuilder.create().build();
+    }
+
+    //===========
+    @Bean
+    public DataSourceTransactionManager transactionManager(DataSource dynamicDataSource) {
+        return new DataSourceTransactionManager(dynamicDataSource);
+    }
+
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(DataSource dynamicDataSource) throws Exception {
+        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+        bean.setDataSource(dynamicDataSource);
+        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));
+        bean.setTypeAliasesPackage(typeAliasesPackage);
+        bean.setConfigLocation(new PathMatchingResourcePatternResolver().getResource(configLocation));
+        return bean.getObject();
     }
 
 }
