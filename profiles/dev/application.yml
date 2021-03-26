@@ -11,9 +11,9 @@ spring:
 # redis
   redis:
     database: 0
-    host: localhost
+    host: 10.10.60.65
     port: 6379
-    password: root@2021
+    password: iqianjin@123
     ssl: false
     lettuce:
       pool:
@@ -23,13 +23,95 @@ spring:
         minIdle: 1
     timeout: 3000ms
 
+  datasource:
+    member:
+      master:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        filters: mergeStat
+        initial-size: 5
+        max-active: 100
+        max-wait: 20000
+        min-evictable-idle-time-millis: 300000
+        min-idle: 1
+        name: juice
+        password: root@2021
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        time-between-eviction-runs-millis: 60000
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://localhost/member_ms?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
+        username: root
+        validation-query: SELECT 'x'
+      slave:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        filters: mergeStat
+        initial-size: 5
+        max-active: 100
+        max-wait: 20000
+        min-evictable-idle-time-millis: 300000
+        min-idle: 1
+        name: juice
+        password: root@2021
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        time-between-eviction-runs-millis: 60000
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://localhost:3306/member_slave?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
+        username: root
+        validation-query: SELECT 'x'
+    product:
+      master:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        filters: mergeStat
+        initial-size: 5
+        max-active: 100
+        max-wait: 20000
+        min-evictable-idle-time-millis: 300000
+        min-idle: 1
+        name: juice
+        password: root@2021
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        time-between-eviction-runs-millis: 60000
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://localhost:3306/product_ms?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
+        username: root
+        validation-query: SELECT 'x'
+      slave:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        filters: mergeStat
+        initial-size: 5
+        max-active: 100
+        max-wait: 20000
+        min-evictable-idle-time-millis: 300000
+        min-idle: 1
+        name: juice
+        password: root@2021
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        time-between-eviction-runs-millis: 60000
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://localhost:3306/product_slave?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
+        username: root
+        validation-query: SELECT 'x'
+
+# mybatis的相关配置
+mybatis:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  type-aliases-package: juice.samples.storage.entity
+  configLocation: classpath:mybatis/mybatis-config.xml
+
 # juice
 juice:
   tracing:
     enable: true
     pathPatterns: /api/*
   ftp:
-    enable: false
+    enable: true
     host: localhost
     port: 2121
     password: root@2021

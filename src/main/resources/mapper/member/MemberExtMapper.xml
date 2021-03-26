@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="juice.samples.storage.mapper.member.MemberExtMapper" >
+  <resultMap id="BaseResultMap" type="juice.samples.storage.entity.member.MemberExt" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="BIGINT" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="level_id" property="levelId" jdbcType="INTEGER" />
+    <result column="is_trial" property="isTrial" jdbcType="INTEGER" />
+    <result column="credit_total" property="creditTotal" jdbcType="INTEGER" />
+    <result column="credit_available" property="creditAvailable" jdbcType="INTEGER" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="enable_pay_pwd" property="enablePayPwd" jdbcType="INTEGER" />
+    <result column="pay_password" property="payPassword" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, shop_id, member_id, level, level_id, is_trial, credit_total, credit_available, 
+    balance, birthday, email, enable_pay_pwd, pay_password, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from es_member_ext
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from es_member_ext
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="juice.samples.storage.entity.member.MemberExt" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into es_member_ext (shop_id, member_id, level, 
+      level_id, is_trial, credit_total, 
+      credit_available, balance, birthday, 
+      email, enable_pay_pwd, pay_password, 
+      create_time, update_time)
+    values (#{shopId,jdbcType=INTEGER}, #{memberId,jdbcType=BIGINT}, #{level,jdbcType=INTEGER}, 
+      #{levelId,jdbcType=INTEGER}, #{isTrial,jdbcType=INTEGER}, #{creditTotal,jdbcType=INTEGER}, 
+      #{creditAvailable,jdbcType=INTEGER}, #{balance,jdbcType=DECIMAL}, #{birthday,jdbcType=TIMESTAMP}, 
+      #{email,jdbcType=VARCHAR}, #{enablePayPwd,jdbcType=INTEGER}, #{payPassword,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="juice.samples.storage.entity.member.MemberExt" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into es_member_ext
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="levelId != null" >
+        level_id,
+      </if>
+      <if test="isTrial != null" >
+        is_trial,
+      </if>
+      <if test="creditTotal != null" >
+        credit_total,
+      </if>
+      <if test="creditAvailable != null" >
+        credit_available,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="enablePayPwd != null" >
+        enable_pay_pwd,
+      </if>
+      <if test="payPassword != null" >
+        pay_password,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=BIGINT},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelId != null" >
+        #{levelId,jdbcType=INTEGER},
+      </if>
+      <if test="isTrial != null" >
+        #{isTrial,jdbcType=INTEGER},
+      </if>
+      <if test="creditTotal != null" >
+        #{creditTotal,jdbcType=INTEGER},
+      </if>
+      <if test="creditAvailable != null" >
+        #{creditAvailable,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="enablePayPwd != null" >
+        #{enablePayPwd,jdbcType=INTEGER},
+      </if>
+      <if test="payPassword != null" >
+        #{payPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="juice.samples.storage.entity.member.MemberExt" >
+    update es_member_ext
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=BIGINT},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="levelId != null" >
+        level_id = #{levelId,jdbcType=INTEGER},
+      </if>
+      <if test="isTrial != null" >
+        is_trial = #{isTrial,jdbcType=INTEGER},
+      </if>
+      <if test="creditTotal != null" >
+        credit_total = #{creditTotal,jdbcType=INTEGER},
+      </if>
+      <if test="creditAvailable != null" >
+        credit_available = #{creditAvailable,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="enablePayPwd != null" >
+        enable_pay_pwd = #{enablePayPwd,jdbcType=INTEGER},
+      </if>
+      <if test="payPassword != null" >
+        pay_password = #{payPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="juice.samples.storage.entity.member.MemberExt" >
+    update es_member_ext
+    set shop_id = #{shopId,jdbcType=INTEGER},
+      member_id = #{memberId,jdbcType=BIGINT},
+      level = #{level,jdbcType=INTEGER},
+      level_id = #{levelId,jdbcType=INTEGER},
+      is_trial = #{isTrial,jdbcType=INTEGER},
+      credit_total = #{creditTotal,jdbcType=INTEGER},
+      credit_available = #{creditAvailable,jdbcType=INTEGER},
+      balance = #{balance,jdbcType=DECIMAL},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      email = #{email,jdbcType=VARCHAR},
+      enable_pay_pwd = #{enablePayPwd,jdbcType=INTEGER},
+      pay_password = #{payPassword,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
