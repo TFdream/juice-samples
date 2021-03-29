@@ -19,7 +19,7 @@ CREATE TABLE `es_member` (
   PRIMARY KEY (`id`),
   KEY `idx_shop_id` (`shop_id`),
   KEY `idx_mobile` (`mobile`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='会员基础信息表'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='会员基础信息表';
 
 CREATE TABLE `es_member_ext` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',

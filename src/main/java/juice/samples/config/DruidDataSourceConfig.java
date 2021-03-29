@@ -47,7 +47,7 @@ public class DruidDataSourceConfig {
         tarDsMap.put(DataSourceKey.SLAVE_PRODUCT, productSlaveDS());
         dynamicDataSource.setTargetDataSources(tarDsMap);
 
-        dynamicDataSource.setDefaultTargetDataSource(tarDsMap.get(DataSourceKey.MASTER_MEMBER));
+        dynamicDataSource.setDefaultTargetDataSource(tarDsMap.get(DataSourceKey.MASTER_PRODUCT));
 
         dynamicDataSource.setPkgDefaultDsKeyMap(pkgDefaultDsKeyMap);
 

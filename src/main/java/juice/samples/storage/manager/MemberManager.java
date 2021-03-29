@@ -9,6 +9,7 @@ import juice.samples.storage.mapper.member.MemberMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -24,6 +25,19 @@ public class MemberManager {
 
     @Resource
     private MemberExtMapper memberExtMapper;
+
+    @Transactional
+    @DSRouting(DataSourceKey.MASTER_MEMBER)
+    public Member add(String nickname) {
+        Member member = new Member();
+        member.setShopId(5);
+        member.setMobile("18611509999");
+        member.setNickname(nickname);
+
+        memberMapper.insertSelective(member);
+        return member;
+    }
+
 
     @DSRouting(DataSourceKey.MASTER_MEMBER)
     public Member findById(Long id) {
