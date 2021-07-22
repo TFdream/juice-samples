@@ -24,7 +24,9 @@ import java.util.concurrent.TimeUnit;
 public class DistributedLockController {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    private int maxWaitTime = 3;
+    private int maxWaitTime = 20;
+
+    private int leaseTime = 45;
 
     @Resource
     private DistributedLockManager distributedLockManager;
@@ -36,7 +38,7 @@ public class DistributedLockController {
         }
         String key = String.format("lock:%s", productId);
         DistributedLock lock = distributedLockManager.getLock(key);
-        boolean success = lock.tryLock(0, 10, TimeUnit.SECONDS);
+        boolean success = lock.tryLock(0, leaseTime, TimeUnit.SECONDS);
         if (!success) {
             LOG.info("商品秒杀-提交请求, productId={} 加锁失败, key={}", productId, key);
             return ResultDTO.invalidParam("加锁失败");
@@ -67,7 +69,7 @@ public class DistributedLockController {
         DistributedLock lock3 = distributedLockManager.getLock(String.format("multi_lock:%s_%s", productId, 3));
 
         DistributedLock multiLock = distributedLockManager.getMultiLock(lock1, lock2, lock3);
-        boolean success = multiLock.tryLock(0, 10, TimeUnit.SECONDS);
+        boolean success = multiLock.tryLock(0, leaseTime, TimeUnit.SECONDS);
         if (!success) {
             LOG.info("分布式锁-多锁-提交请求, productId={} 加锁失败", productId);
             return ResultDTO.invalidParam("加锁失败");
@@ -98,7 +100,7 @@ public class DistributedLockController {
         DistributedLock lock3 = distributedLockManager.getLock(String.format("red_lock:%s_%s", productId, 3));
 
         RedLock redLock = new RedLock(lock1, lock2, lock3);
-        boolean success = redLock.tryLock(0, 10, TimeUnit.SECONDS);
+        boolean success = redLock.tryLock(0, leaseTime, TimeUnit.SECONDS);
         if (!success) {
             LOG.info("分布式锁-红锁-提交请求, productId={} 加锁失败", productId);
             return ResultDTO.invalidParam("加锁失败");
