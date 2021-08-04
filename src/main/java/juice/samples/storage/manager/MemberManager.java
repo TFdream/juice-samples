@@ -17,6 +17,7 @@ import javax.annotation.Resource;
  * @author Ricky Fung
  */
 @Component
+@DSRouting(DataSourceKey.SLAVE_MEMBER)
 public class MemberManager {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
@@ -38,8 +39,6 @@ public class MemberManager {
         return member;
     }
 
-
-    @DSRouting(DataSourceKey.MASTER_MEMBER)
     public Member findById(Long id) {
         return memberMapper.selectByPrimaryKey(id);
     }

@@ -35,21 +35,20 @@ public class DruidDataSourceConfig {
 
     @Bean
     public DynamicDataSource dynamicDataSource() {
-        Map<String,String> pkgDefaultDsKeyMap = new HashMap<>(4);
+        Map<String, String> pkgDefaultDsKeyMap = new HashMap<>(4);
         pkgDefaultDsKeyMap.put("juice.samples.storage.mapper.member", DataSourceKey.MASTER_MEMBER);
         pkgDefaultDsKeyMap.put("juice.samples.storage.mapper.product", DataSourceKey.MASTER_PRODUCT);
 
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
-        Map<Object, Object> tarDsMap = new HashMap<>(8);
+        Map<String, DataSource> tarDsMap = new HashMap<>(8);
         tarDsMap.put(DataSourceKey.MASTER_MEMBER, memberMasterDS());
         tarDsMap.put(DataSourceKey.SLAVE_MEMBER, memberSlaveDS());
         tarDsMap.put(DataSourceKey.MASTER_PRODUCT, productMasterDS());
         tarDsMap.put(DataSourceKey.SLAVE_PRODUCT, productSlaveDS());
+        //目标数据源
         dynamicDataSource.setTargetDataSources(tarDsMap);
-
+        //设置默认数据源
         dynamicDataSource.setDefaultTargetDataSource(tarDsMap.get(DataSourceKey.MASTER_PRODUCT));
-
-        dynamicDataSource.setPkgDefaultDsKeyMap(pkgDefaultDsKeyMap);
 
         return dynamicDataSource;
     }
