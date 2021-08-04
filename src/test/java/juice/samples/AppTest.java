@@ -4,7 +4,6 @@ import juice.datasource.aop.DynamicDataSourcePointcutAdvisor;
 import juice.samples.storage.manager.MemberManager;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.aop.MethodMatcher;
 import org.springframework.aop.Pointcut;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;

@@ -16,7 +16,6 @@ import java.util.List;
 /**
  * @author Ricky Fung
  */
-@DSRouting(DataSourceKey.MASTER_PRODUCT)
 @Component
 public class ProductManager {
 
@@ -29,14 +28,17 @@ public class ProductManager {
     @Resource
     private ProductSpecItemMapper productSpecItemMapper;
 
+    @DSRouting(DataSourceKey.SLAVE_PRODUCT)
     public ProductSku findById(Long id) {
         return productSkuMapper.selectByPrimaryKey(id);
     }
 
+    @DSRouting(DataSourceKey.SLAVE_PRODUCT)
     public ProductSpecOption findSpecById(Integer specId) {
         return productSpecOptionMapper.selectByPrimaryKey(specId);
     }
 
+    @DSRouting(DataSourceKey.SLAVE_PRODUCT)
     public List<ProductSpecItem> findSpecValueById(Integer specId) {
         return productSpecItemMapper.selectBySpecId(specId);
     }
