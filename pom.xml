@@ -60,7 +60,7 @@
         <!-- juice -->
         <dependency>
             <groupId>io.infinityclub</groupId>
-            <artifactId>juice-dynamic-datasource</artifactId>
+            <artifactId>juice-springsupport</artifactId>
             <version>${juice.version}</version>
         </dependency>
         <dependency>

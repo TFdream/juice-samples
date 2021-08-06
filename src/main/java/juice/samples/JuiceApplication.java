@@ -1,6 +1,6 @@
 package juice.samples;
 
-import juice.datasource.annotation.EnableDynamicDataSource;
+import juice.config.springsupport.annotation.EnableDynamicDataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;

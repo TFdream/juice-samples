@@ -1,6 +1,6 @@
 package juice.samples;
 
-import juice.datasource.aop.DynamicDataSourcePointcutAdvisor;
+import juice.config.springsupport.datasource.DynamicDataSourcePointcutAdvisor;
 import juice.samples.storage.manager.MemberManager;
 import org.junit.Ignore;
 import org.junit.Test;

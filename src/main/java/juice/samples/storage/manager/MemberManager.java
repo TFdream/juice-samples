@@ -1,6 +1,6 @@
 package juice.samples.storage.manager;
 
-import juice.datasource.annotation.DSRouting;
+import juice.config.springsupport.annotation.DSRouting;
 import juice.samples.constants.DataSourceKey;
 import juice.samples.storage.entity.member.Member;
 import juice.samples.storage.entity.member.MemberExt;
