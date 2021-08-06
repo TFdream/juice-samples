@@ -1,5 +1,6 @@
 package juice.samples.web.controller;
 
+import juice.config.springsupport.annotation.DLock;
 import juice.contracts.ResultDTO;
 import juice.lock.DistributedLock;
 import juice.lock.DistributedLockManager;
@@ -31,11 +32,27 @@ public class DistributedLockController {
     @Resource
     private DistributedLockManager distributedLockManager;
 
+    @DLock(prefix = "lock:sec_kill", key = "#productId + '_' + #skuId", leaseTime = 15, timeUnit = TimeUnit.SECONDS)
+    @GetMapping("/stock")
+    public ResultDTO lockStock(@RequestParam(value = "productId", required = false) Integer productId,
+                               @RequestParam(value = "skuId", required = false) Integer skuId) {
+        LOG.info("商品秒杀【注解配置】-提交请求开始, productId={}, skuId={}", productId, skuId);
+        try {
+            //模拟业务处理逻辑
+            long time = RandomUtils.nextLong(1, maxWaitTime);
+            TimeUnit.SECONDS.sleep(time);
+
+            LOG.info("商品秒杀【注解配置】-提交请求, productId={} 加锁成功", productId);
+            return ResultDTO.ok();
+        } catch (Exception e) {
+            LOG.error("商品秒杀【注解配置】-提交请求异常", e);
+        }
+        return ResultDTO.systemError();
+    }
+
     @GetMapping("/lock")
     public ResultDTO lock(@RequestParam(value = "productId", required = false) Integer productId) {
-        if (productId == null) {
-            return ResultDTO.invalidParam("productId必传");
-        }
+        LOG.info("商品秒杀-提交请求开始, productId={} 加锁成功", productId);
         String key = String.format("lock:%s", productId);
         DistributedLock lock = distributedLockManager.getLock(key);
         boolean success = lock.tryLock(0, leaseTime, TimeUnit.SECONDS);

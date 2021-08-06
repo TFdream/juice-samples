@@ -1,5 +1,6 @@
 package juice.samples;
 
+import juice.config.springsupport.annotation.EnableDistributedLock;
 import juice.config.springsupport.annotation.EnableDynamicDataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,6 +9,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 /**
  * @author Ricky Fung
  */
+@EnableDistributedLock
 //开启动态数据源
 @EnableDynamicDataSource
 @SpringBootApplication
